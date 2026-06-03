@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maaf Ya Sayang ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom right, #ffd1dc, #ffe4e1);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .slide {
+      display: none;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      animation: fadeIn 1s;
+    }
+
+    .active { display: flex; }
+
+    img {
+      max-width: 250px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4d6d;
+      color: white;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    #yesBtn { transform: scale(1); }
+    #noBtn { transform: scale(1); background: #999; }
+
+    .finalText {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.3em;
+      color: #ff2e63;
+      animation: fadeIn 1s;
+    }
+
+    .finalPhoto {
+      display: none;
+      max-width: 300px;
+      border-radius: 20px;
+      margin-top: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      animation: fadeIn 1.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .heart {
+      position: fixed;
+      top: -10px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1 -->
+  <div class="slide active" id="slide1">
+    <img src="https://i.imgur.com/8Km9tLL.jpg">
+    <h2>Sayang... aku mau ngomong sesuatu 🥺</h2>
+    <button onclick="nextSlide(2)">Lanjut</button>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide" id="slide2">
+    <img src="https://i.imgur.com/jQ9Z1Zm.jpg">
+    <h2>Aku tau aku salah...</h2>
+    <button onclick="nextSlide(3)">Lanjut</button>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="slide" id="slide3">
+    <img src="https://i.imgur.com/3GvwNBf.jpg">
+    <h2>Tapi aku ga pernah niat nyakitin kamu 😔</h2>
+    <button onclick="nextSlide(4)">Lanjut</button>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="slide" id="slide4">
+    <img src="https://i.imgur.com/ZF6s192.jpg">
+    <h2>Kamu itu rumah aku ❤️</h2>
+    <button onclick="nextSlide(5)">Lanjut</button>
+  </div>
+
+  <!-- SLIDE 5 FINAL -->
+  <div class="slide" id="slide5">
+    <img src="https://i.imgur.com/2nCt3Sbl.jpg">
+    <h2>Maafin aku ya... aku ga mau kehilangan kamu 🥺❤️</h2>
+
+    <div style="margin-top:20px;">
+      <button id="yesBtn" onclick="maafin()">Maafin Aku ❤️</button>
+      <button id="noBtn" onclick="tolak()">Engga 😤</button>
+    </div>
+
+    <div id="finalText" class="finalText">
+      Kamu ga mungkin setega itu kan... 🥺❤️<br>
+      Yaudah sini... peluk aku 🤗
+    </div>
+
+    <!-- FOTO KALIAN (GANTI LINK INI) -->
+    <img id="finalPhoto" 
+     class="finalPhoto" 
+     src="https://drive.google.com/uc?export=view&id=1oNg-3mpqdYR3zw97oQiPREJlWNtRIEQC">
+  </div>
+
+  <script>
+    let noScale = 1;
+    let yesScale = 1;
+
+    function nextSlide(n) {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      document.getElementById('slide' + n).classList.add('active');
+    }
+
+    function maafin() {
+      document.getElementById('finalText').style.display = 'block';
+      document.getElementById('finalPhoto').style.display = 'block';
+    }
+
+    function tolak() {
+      const noBtn = document.getElementById('noBtn');
+      const yesBtn = document.getElementById('yesBtn');
+
+      noScale -= 0.2;
+      yesScale += 0.2;
+
+      if (noScale < 0.2) {
+        noScale = 0.2;
+        noBtn.innerText = "Yaudah Maafin 😭";
+        noBtn.style.background = "#ff4d6d";
+        noBtn.onclick = maafin;
+      }
+
+      noBtn.style.transform = `scale(${noScale})`;
+      yesBtn.style.transform = `scale(${yesScale})`;
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+</html>
